@@ -379,7 +379,7 @@ async def async_setup_entry(hass, config_entry):
             try:
                 ca_url = 'https://raw.githubusercontent.com/cnk700i/havcs/master/custom_components/havcs/ca.crt'
                 session = async_get_clientsession(hass, verify_ssl=False)
-                with async_timeout.timeout(5, loop=hass.loop):
+                with async_timeout.timeout(5):
                     response = await session.get(ca_url)
                 ca_bytes = await response.read()
                 md5_l = hashlib.md5()
@@ -414,7 +414,7 @@ async def async_setup_entry(hass, config_entry):
 
                 try:
                     session = async_get_clientsession(hass, verify_ssl=False)
-                    with async_timeout.timeout(5, loop=hass.loop):
+                    with async_timeout.timeout(5):
                         response = await session.post(url, data=mqtt_msg['content'], headers = mqtt_msg.get('headers'))
                 except(asyncio.TimeoutError, aiohttp.ClientError):
                     _LOGGER.error("[http_proxy] fail to access %s in local network: timeout", url)
@@ -424,7 +424,7 @@ async def async_setup_entry(hass, config_entry):
                 _LOGGER.debug("[http_proxy] use GET method")
                 try:
                     session = async_get_clientsession(hass, verify_ssl=False)
-                    with async_timeout.timeout(5, loop=hass.loop):
+                    with async_timeout.timeout(5):
                         response = await session.get(url, headers = mqtt_msg.get('headers'))
                 except(asyncio.TimeoutError, aiohttp.ClientError):
                     _LOGGER.error("[http_proxy] fail to access %s in local network: timeout", url)

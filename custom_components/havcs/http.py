@@ -461,7 +461,7 @@ class HavcsHttpManager:
                 self._retry_remove = None
 
             session = async_get_clientsession(self._hass, verify_ssl=False)
-            with async_timeout.timeout(5, loop= self._hass.loop):
+            with async_timeout.timeout(5):
                 response = await session.get(self._ha_url + '/havcs/auth/authorize')
             if response.status == 401:
                 _LOGGER.debug("[%s][check] aouth service is running: url = %s, status = %s", LOGGER_NAME, self._ha_url + '/havcs/auth/authorize', response.status)
