@@ -43,7 +43,7 @@ CONF_MODE = 'mode'
 CLIENT_PALTFORM_DICT = {
     'jdwhale': 'https://alphadev.jd.com',
     'dueros': 'https://xiaodu.baidu.com',
-    'aligenie': 'https://open.bot.tmall.com'
+    'aligenie': 'https://iap.aligenie.com'
 }
 
 HAVCS_ACTIONS_ALIAS = {
