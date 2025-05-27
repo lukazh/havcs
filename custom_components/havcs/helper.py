@@ -261,7 +261,7 @@ class VoiceControlDeviceManager:
         return ids
 
     async def async_reregister_devices(self, hass = None):
-        device_registry = await async_get(hass)
+        device_registry = async_get(hass)
         device_registry.async_clear_config_entry(self._entry.entry_id)
         for device in self._devices_cache.values():
             await device.async_update_device_registry()
