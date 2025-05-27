@@ -6,7 +6,6 @@ import logging
 import traceback
 
 from homeassistant.exceptions import ServiceNotFound
-from homeassistant.helpers.state import AsyncTrackStates
 from homeassistant.core import HomeAssistant, Context
 
 from .const import DATA_HAVCS_SETTINGS, INTEGRATION, DATA_HAVCS_ITEMS, ATTR_DEVICE_VISABLE, ATTR_DEVICE_ID, ATTR_DEVICE_ENTITY_ID, ATTR_DEVICE_TYPE, ATTR_DEVICE_NAME, ATTR_DEVICE_ZONE, ATTR_DEVICE_ATTRIBUTES, ATTR_DEVICE_ACTIONS, ATTR_DEVICE_PROPERTIES
