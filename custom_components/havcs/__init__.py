@@ -619,7 +619,6 @@ async def async_setup_entry(hass, config_entry):
                 if entry.data.get('platform') in remove_platforms:
                     await hass.async_create_task(hass.config_entries.async_remove(entry.entry_id))
                 else:
-                    entry.title=f"接入平台[{entry.data.get('platform')}-{DEVICE_PLATFORM_DICT[entry.data.get('platform')]['cn_name']}]，接入方式{mode}"
                     hass.config_entries.async_update_entry(
                         entry,
                         data={**entry.data, title:f"接入平台[{entry.data.get('platform')}-{DEVICE_PLATFORM_DICT[entry.data.get('platform')]['cn_name']}]，接入方式{mode}"}
