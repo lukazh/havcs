@@ -619,8 +619,11 @@ async def async_setup_entry(hass, config_entry):
                 if entry.data.get('platform') in remove_platforms:
                     await hass.async_create_task(hass.config_entries.async_remove(entry.entry_id))
                 else:
-                    entry.title=f"接入平台[{entry.data.get('platform')}-{DEVICE_PLATFORM_DICT[entry.data.get('platform')]['cn_name']}]，接入方式{mode}"
-                    hass.config_entries.async_update_entry(entry)
+                    hass.config_entries.async_update_entry(
+                        entry,
+                        data={**entry.data},
+                        title=f"接入平台[{entry.data.get('platform')}-{DEVICE_PLATFORM_DICT[entry.data.get('platform')]['cn_name']}]，接入方式{mode}"
+                    )
 
             # await async_load_device_info()
 
@@ -628,7 +631,7 @@ async def async_setup_entry(hass, config_entry):
                 for ent in hass.config_entries.async_entries(DOMAIN):
                     if ent.source == SOURCE_PLATFORM and ent.data.get('platform') == platform:
                         try:
-                            module = importlib.import_module('custom_components.{}.{}'.format(DOMAIN,platform))
+                            module = await hass.async_add_executor_job(importlib.import_module, 'custom_components.{}.{}'.format(DOMAIN,platform))
                             _LOGGER.info("[post-task] import %s.%s", DOMAIN, platform)
                             hass.data[DOMAIN][DATA_HAVCS_HANDLER][platform] = await module.createHandler(hass, ent)
                             # hass.data[DOMAIN][DATA_HAVCS_HANDLER][platform].vcdm.all(hass, True)

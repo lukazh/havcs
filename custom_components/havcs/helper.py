@@ -6,8 +6,8 @@ import logging
 import traceback
 
 from homeassistant.exceptions import ServiceNotFound
-from homeassistant.helpers.state import AsyncTrackStates
 from homeassistant.core import HomeAssistant, Context
+from homeassistant.helpers.device_registry import (async_get)
 
 from .const import DATA_HAVCS_SETTINGS, INTEGRATION, DATA_HAVCS_ITEMS, ATTR_DEVICE_VISABLE, ATTR_DEVICE_ID, ATTR_DEVICE_ENTITY_ID, ATTR_DEVICE_TYPE, ATTR_DEVICE_NAME, ATTR_DEVICE_ZONE, ATTR_DEVICE_ATTRIBUTES, ATTR_DEVICE_ACTIONS, ATTR_DEVICE_PROPERTIES
 from .device import VoiceControllDevice
@@ -262,7 +262,7 @@ class VoiceControlDeviceManager:
 
     async def async_reregister_devices(self, hass = None):
         # entity_registry = await hass.helpers.entity_registry.async_get_registry()
-        device_registry = await hass.helpers.device_registry.async_get_registry()
+        device_registry = async_get(hass)
         device_registry.async_clear_config_entry(self._entry.entry_id)
         for device in self._devices_cache.values():
             await device.async_update_device_registry()
