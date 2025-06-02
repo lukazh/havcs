@@ -180,7 +180,7 @@ class HavcsBindManager:
                     data = havcs_util.AESCipher(self._sync_manager.get('decrypt_key')).encrypt(json.dumps(payload, ensure_ascii = False).encode('utf8'))
                     try:
                         session = async_get_clientsession(self._hass, verify_ssl=False)
-                        with async_timeout.timeout(5, loop=self._hass.loop):
+                        with async_timeout.timeout(5):
                             response = await session.post(url, data=data)
                             _LOGGER.debug("[skill] get bind device result from %s: %s", platform, await response.text())
                     except(asyncio.TimeoutError, aiohttp.ClientError):
@@ -211,7 +211,7 @@ class HavcsBindManager:
                             data = havcs_util.AESCipher(self._sync_manager.get('decrypt_key')).encrypt(json.dumps(payload, ensure_ascii = False).encode('utf8'))
                             try:
                                 session = async_get_clientsession(self._hass, verify_ssl=False)
-                                with async_timeout.timeout(5, loop=self._hass.loop):
+                                with async_timeout.timeout(5):
                                     response = await session.post(url, data=data)
                                     _LOGGER.debug("[skill] get report device result from %s: %s", platform, await response.text())
                             except(asyncio.TimeoutError, aiohttp.ClientError):
